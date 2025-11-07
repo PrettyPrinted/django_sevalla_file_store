@@ -126,6 +126,7 @@ STORAGES = {
             "secret_key": env("STATIC_BUCKET_SECRET_KEY"),
             "bucket_name": env("STATIC_BUCKET_NAME"),
             "endpoint_url": env("STATIC_BUCKET_ENDPOINT_URL"),
+            "custom_domain": env("STATIC_BUCKET_DOMAIN"),
             "signature_version": "s3v4"
         }
     }
