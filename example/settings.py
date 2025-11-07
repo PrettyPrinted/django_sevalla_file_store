@@ -99,7 +99,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = f'{env("STATIC_BUCKET_ENDPOINT_URL")}/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -107,3 +107,26 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": env("MEDIA_BUCKET_ACCESS_KEY"),
+            "secret_key": env("MEDIA_BUCKET_SECRET_KEY"),
+            "bucket_name": env("MEDIA_BUCKET_NAME"),
+            "endpoint_url": env("MEDIA_BUCKET_ENDPOINT_URL"),
+            "signature_version": "s3v4"
+        }
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": env("STATIC_BUCKET_ACCESS_KEY"),
+            "secret_key": env("STATIC_BUCKET_SECRET_KEY"),
+            "bucket_name": env("STATIC_BUCKET_NAME"),
+            "endpoint_url": env("STATIC_BUCKET_ENDPOINT_URL"),
+            "signature_version": "s3v4"
+        }
+    }
+}
